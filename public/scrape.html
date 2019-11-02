@@ -89,12 +89,12 @@
 
 			for (var i = 0; i < notesData.length; i++)
 				if (data.title == notesData[i].title) {
+					var div = $('<div>')
 					var note = $('<li>').attr('id', 'list').text(`${notesData[i].note}`);
-					var deleteNote = $('<button>').attr('id', 'delete').text('Delete')
-					noteSection.append(note, deleteNote);
+					var deleteNote = $('<button>').attr('id', 'delete').attr('data-userid', `${notesData[i]._id}`).attr('data-title', `${notesData[i].title}`).attr('data-summary', `${notesData[i].summary}`).attr('data-link', `${notesData[i].link}`).text('Delete')
+					div.append(note, deleteNote)
+					noteSection.append(div);
 				}
-
-			
 
 			//Input Notes field
 			var notesDiv = $('<div>').attr('class', 'form-row');
@@ -105,15 +105,31 @@
 			$('#login-form').append(showID, notesDiv, noteSection)
 
 			$(document).on('click', '.submit', function() {
-				event.preventDefault()
 				data.savedNote = $('#saved-note').val()
 					$.ajax({
 		    			method: 'POST',
 		    			url: '/notes',
 		    			data: data
 	        		}).then(function(data) {
-	        			console.log(data);
+	        			console.log('data', data);
 	        		})
+			})
+
+			$(document).on('click', '#delete', function() {
+				var notesData = {
+		        	id: $(this).data().userid,
+		        	title: $(this).data().title,
+		        	summary: $(this).data().summary,
+		        	link: $(this).data().link		
+				}
+				var deletedNote = $(this).parent();
+
+				$.ajax({
+					method: 'POST',
+					url: '/notes/' + notesData.id + '?_method=DELETE'
+				}).then(function(data) {
+					deletedNote.remove();
+				})				
 			})
 		})
 

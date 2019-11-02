@@ -110,7 +110,7 @@ app.get("/saved", function(req, res) {
 
 app.post("/notes", function(req, res) {
 
-	db.notes.find({title: req.body.title}, function(err, item) {
+	// db.notes.find({title: req.body.title}, function(err, item) {
 	// if (item.length < 1) {
 	db.notes.insert({
 		title: req.body.title,
@@ -121,16 +121,12 @@ app.post("/notes", function(req, res) {
 			console.log(err);
 		} else {
 			console.log('inserted', inserted)
+			res.json(inserted)
 		}
 	});  				
-	// } else {
-	// 	console.log('this is already here')
-	// 	db.notes.find(
-	// 		{title: req.body.title}, {$push: {note: req.body.savedNote}}
-	// 	);	
-	// }
-})
-	res.send("note saved")
+	// res.json(item)
+// })
+	// res.send("note saved")
 });
 
 app.get("/notes", function(req, res) {
@@ -162,7 +158,20 @@ app.delete("/saved/:id", function(req, res) {
     });
   });
 
+app.delete("/notes/:id", function(req, res) {
+	var id = req.params.id;
 
+    db.notes.remove({
+      "_id": mongojs.ObjectID(id)
+    }, function(error, removed) {
+      if (error) {
+        res.send(error);
+      }else {
+        // res.json(id);
+        res.json(removed)
+      }
+    });
+  });
 
 
 
