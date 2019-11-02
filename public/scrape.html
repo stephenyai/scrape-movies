@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'/>
+
+	<title>Scrape Slash Films</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link rel='stylesheet' href='assets/css/style.css'/>	
+</head>
+<body>
+    <div class='menu-container'>
+		<div class='menu'>
+			<div class='title'>/Film Scraper</div>
+			<div class='links'>
+				<a href="/" class='routes'><div class='home'>Home</div></a>
+				<a href="/" class='routes'><div class='scrape'>Scrape Articles</div></a>
+				<a href="/scrape.html" class='routes'><div class='saved'>Saved Articles</div></a>
+			</div>
+    	</div>
+	</div>
+
+	<div class='header-container'>
+		<div class='header'>
+			<div class='logo'><img src='data:image/jpeg;base64,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'/></div>
+		</div>
+	</div>
+
+	<div class='photo-grid-container'>
+	  <div class='photo-grid'>
+	  </div>
+	  <div id='button'></div>
+	</div>
+
+	<form id="login-form" class="modal">
+  	</form>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		method: 'GET',
+		url: '/saved'
+	}).then(function(movies){
+		console.log(movies)
+
+		for (var i=0; i<movies.length; i++){
+			var $div = $('<div>')
+			$div.attr('class', 'photo-grid-item')
+
+			// Title, Summary, Full article link
+			var $p = $('<p>').attr('id', 'text').text(`${movies[i].title}`)
+			var $p2 = $('<p>').attr('id', 'text').text(`${movies[i].summary}`)
+			var $p3 = $('<a>').attr('href', `${movies[i].link}`). attr('id', 'text').text('Click here for full article')
+
+			// Button to create note
+			var $divButton = $('<div>').attr('class', 'form-row');
+			var $button = $('<button>').attr('id', 'noteButton').attr('data-userid', `${movies[i]._id}`).attr('data-title', `${movies[i].title}`).attr('data-summary', `${movies[i].summary}`).attr('data-link', `${movies[i].link}`).text('Make a note');
+			var $dButton = $('<button>').attr('id', 'deleteButton').attr('data-userid', `${movies[i]._id}`).attr('data-title', `${movies[i].title}`).attr('data-summary', `${movies[i].summary}`).attr('data-link', `${movies[i].link}`).text('Delete');
+			var note = $divButton.append($button, $dButton);
+
+			$div.append($p, $p2, $p3, note);
+
+			$('.photo-grid').append($div);
+		}
+	})
+
+	$(document).on('click', '#noteButton', function() {
+		var data = {
+        	id: $(this).data().userid,
+        	title: $(this).data().title,
+        	summary: $(this).data().summary,
+        	link: $(this).data().link
+        }
+
+		$('#login-form').modal(); //run modal
+		$('#login-form').empty(); 
+
+		var showID = $('<header>').text(`Notes from Article ID: ${data.id}`);
+		$.ajax({
+			method: 'GET',
+			url: '/notes'
+		}).then(function(notesData) {
+
+			var noteSection = $('<ul>').attr('id', 'noteSection').text('Saved Notes:');
+
+			for (var i = 0; i < notesData.length; i++)
+				if (data.title == notesData[i].title) {
+					var note = $('<li>').attr('id', 'list').text(`${notesData[i].note}`);
+					var deleteNote = $('<button>').attr('id', 'delete').text('Delete')
+					noteSection.append(note, deleteNote);
+				}
+
+			
+
+			//Input Notes field
+			var notesDiv = $('<div>').attr('class', 'form-row');
+			var label = $('<label>').attr('for', 'saved-note').text('Leave Comment');
+			var input = $('<input>').attr('id', 'saved-note').attr('name', 'saved-note').attr('type', 'text');
+			var submit = $('<button>').attr('class', 'submit').text('Save Note');
+			notesDiv.append(label, input, submit);
+			$('#login-form').append(showID, notesDiv, noteSection)
+
+			$(document).on('click', '.submit', function() {
+				event.preventDefault()
+				data.savedNote = $('#saved-note').val()
+					$.ajax({
+		    			method: 'POST',
+		    			url: '/notes',
+		    			data: data
+	        		}).then(function(data) {
+	        			console.log(data);
+	        		})
+			})
+		})
+
+	})
+
+	$(document).on('click', '#deleteButton', function() {
+		var articleData = {
+        	id: $(this).data().userid,
+        	title: $(this).data().title,
+        	summary: $(this).data().summary,
+        	link: $(this).data().link
+        }
+
+        var deletedArticle = $(this).parent().parent();
+
+        $.ajax({
+			method: 'POST',
+			url: '/saved/' + articleData.id + '?_method=DELETE'
+		}).then(function(data) {
+			deletedArticle.remove();
+		})
+	})
+
+
+</script>
+</body>
+</html>
